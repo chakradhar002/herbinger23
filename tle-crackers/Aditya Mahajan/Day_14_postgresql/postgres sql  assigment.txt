@@ -1,0 +1,192 @@
+ PostgreSQL   Create Table
+ PostgreSQL   Drop Table
+ PostgreSQL  Show Table
+ PostgreSQL  Describe Table
+ PostgreSQL  ALTER table
+ PostgreSQL  ADD Column
+ PostgreSQL  Drop column Change  Column Type 
+ PostgreSQL  Rename Column
+ PostgreSQL  Truncate table
+ PostgreSQL  temporary table
+ PostgreSQL  Column Alias
+ PostgreSQL  SequenceIdentity Column
+ PostgreSQL  UpsertPostgreSQL Subquery
+ ---------------------------------------------------
+ create
+
+ 1 Write a SQL statement to create a table named jobs including columns job_id, job_title, min_salary, max_salary and check whether the max_salary 
+   amount exceeding the upper limit 25000.
+ 4 Write a SQL statement to create a table named jobs including columns job_id, job_title, min_salary and max_salary, and make 
+   sure that, the default value for job_title is blank and min_salary is 8000 and max_salary is NULL will be entered automatically at the time of insertion 
+   if no value assigned for the specified columns.
+
+   => create table job(job_id char(30) primary key not null,job_title char(50) not null default ' ',min_salary numeric(6,0) default 8000, max_salary numeric(6,0) 
+   default null, CHECK (max_salary <= 25000));
+
+
+
+ 2 Write a SQL statement to create a table named countries including columns country_id, country_name and region_id and make sure that no countries except 
+     Italy, India and China will be entered in the table.
+ 3 Write a SQL statement to create a table named countries including columns country_id,country_name and region_id and make sure that no duplicate 
+  data against column country_id will be allowed at the time of insertion.
+ 5 Write a SQL statement to create a table named countries including columns country_id, country_name and region_id and make  sure that the country_id 
+   column will be a key field which will not contain any duplicate data at the time of insertion.
+ 6 Write a SQL statement to create a table countries including columns country_id, country_name and region_id and make sure that the column country_id 
+   will be unique and store an auto-incremented value.
+ 7 Write a SQL statement to create a table countries including columns country_id, country_name and region_id and make sure that the combination of 
+   columns country_id and region_id will be unique.
+   
+    => create table countries(country_id varchar(50) primary key not null,country_name varchar(50), region_id int, CHECK (country_name in('Italy','India','China')),
+    unique(country_id,region_id));
+
+   
+   
+8 Write a SQL statement to create a table job_history including columns employee_id, start_date, end_date, job_id and department_id
+   and make sure that, the employee_id column does not contain any duplicate value at the time of insertion and the foreign key column job_id contain only those values which exist in the jobs table.
+   
+   => CREATE TABLE job_history ( EMPLOYEE_ID decimal(6,0) NOT NULL PRIMARY KEY,  START_DATE date NOT NULL, END_DATE date NOT NULL,  JOB_ID varchar(10) NOT NULL,  	DEPARTMENT_ID decimal(4,0) DEFAULT NULL,  FOREIGN KEY (job_id) REFERENCES jobs(job_id));
+
+
+--------------------------------------------
+1. Write a query to find the number of jobs available in the employees table.
+=> select count(distinct job_id)  from employees;
+
+2.Write a query to get the total salaries payable to employees.
+=> select sum(salary) from employee;
+
+3. Write a query to get the minimum salary from employees table.
+=> select min(salary) from employee;
+
+4. Write a query to get the maximum salary of an employee working as a Programmer.
+=> select max(salary)  from employees  where job_id = 'IT_PROG';
+
+5. Write a query to get the average salary and number of employees working in the department which ID is 90.
+=> select avg(salary),count(*)  from employees where department_id = 90;
+
+6. Write a query to get the highest, lowest, total, and average salary of all employees.
+=> select (max(salary)) , (min(salary)), (sum(salary)) , (avg(salary),0) from employees;
+
+7. Write a query to get the number of employees working in each post.
+=> select job_id, count(*) from employees group by job_id;
+
+8. Write a query to get the difference between the highest and lowest salaries.
+=> select max(salary) - min(salary) difference from employees;
+
+9. Write a query to find the manager ID and the salary of the lowest-paid employee under that manager.
+=> select manager_id, min(salary) from employees where manager_id is NOT NULL group manager_id order by MIN(salary) DESC;
+
+10. Write a query to get the department ID and the total salary payable in each department.
+=> select department_id, sum(salary) from employees  group by department_id;
+
+11. Write a query to get the average salary for each post excluding programmer.
+=> select job_id, avg(salary) from employees  where job_id <> 'IT_PROG'  group by job_id;
+
+12. Write a query to get the total salary, maximum, minimum and average salary of all posts for those departments which ID 90.
+=> select job_id, sum(salary), avg(salary), max(salary), min(salary) from employees  where department_id = '90'  group by job_id;
+
+13. Write a query to get the job ID and maximum salary of each post for maximum salary is at or above $4000.
+=> select job_id, max(salary)  from employees  group by job_id  having max(salary) >=4000;
+
+
+1. Write a query to display the name, including first_name and last_name and salary for all employees whose salary is out of the range between $10,000 and $15,000.
+=> select first_name, last_name, salary, department_id from employees where salary not between 10000 and 15000 ;
+
+2. Write a query to display the name, including first_name and last_name, and department ID who works in the department 30 or 100 and arrange the result in ascending order according to the department ID.
+=> select first_name, last_name, department_id from employees where department_id IN (30, 100) order by  department_id  ASC;
+
+3. Write a query to display the name, including first_name and last_name, and salary who works in the department either 30 or 100 and salary is out of the range between $10,000 and $15,000.
+=> SELECT first_name, last_name, salary, department_id from employees where salary not between 10000 and 15000 and department_id IN (30, 100);
+
+4. Write a query to display the name, including first_name and last_name and hire date for all employees who were hired in 1987.
+=> select first_name, last_name, hire_date from employees  where to_char(hire_date, 'YYYY')  like '%87';
+
+5. Write a query to get the first name of the employee who holds the letter 'c' and 'e' in the first name.
+=> select * from employees where first_name like '%c%' or first_name like '%d%'
+
+6. Write a query to display the last name, job, and salary for all those employees who hasn't worked as a Programmer or a Shipping Clerk, and not drawing the salary $4,500, $10,000, or $15,000.
+=> select last_name, job_id, salary from employees where job_id not in ('IT_PROG', 'SH_CLERK') and salary not in (4500,10000, 15000);
+
+7. Write a query to display the last names of employees whose name contain exactly six characters.
+=> select last_name from employees  where last_name like '______';
+
+8. Write a query to display the last name of employees having 'e' as the third character.
+=> select last_name from employees where last_name like '__e%';
+
+9. Write a query to display the jobs/designations available in the employees table.
+=> select distinct job_id  from employees;
+
+10. Write a query to display the name, including first_name, last_name, salary and 15% of salary as PF of all employees.
+
+=> select first_name, last_name, salary, salary*.15 PF from employees;
+ ----------  join--------------------------in postgres------------------------
+ 
+
+
+
+1.Write a query to make a join with employees and departments table to find the name of the employee, 
+including first_name and last name, department ID and name of departments.
+=> select first_name, last_name, department_id, department_name  from employees join departments using (department_id);
+
+2.Write a SQL query to make a join with three tables employees, departments and locations to find the name,
+ including first_name and last_name, jobs, department name and ID, of the employees working in London.
+=>  select e.first_name, e.last_name, e.job_id, e.department_id, d.department_name  from employees e  join departments d  on (e.department_id = d.department_id)  join locations l ON  	(d.location_id = l.location_id) where LOWER(l.city) = 'London';
+
+3.Write a query to make a join with a table employees and itself to find the name, including first_name and
+ last_name and hire date for those employees who were hired after the employee Jones.
+=>  select e.first_name, e.last_name, e.hire_date  from employees e  join employees davies  on (davies.last_name = 'Jones') where davies.hire_date < e.hire_date;
+
+4.Write a query to make a join with two tables employees and departments to get the department name and number 
+ of employees working in each department.
+=>  select department_name as 'Department Name',  count(*) as 'No of Employees'  from departments  inner join employees on employees.department_id = departments.department_id 
+	group by departments.department_id, department_name 
+	order by department_name;
+5.Write a query to make a join with two tables employees and departments to display the department ID, department
+ name and the first name of the manager.
+=>  select d.department_id, d.department_name, d.manager_id, e.first_name  from departments d  inner join employees e  on (d.manager_id = e.employee_id);
+
+6. Write a query to make a join with two tables employees and jobs to display the job title and average salary of employees.
+=> select job_title, avg(salary)  from employees  natural join jobs  group by job_title;
+
+7. Write a query to make a join with two tables job_history and employees to display the status of employees who is currently drawing the salary above 10000.
+=> select jh.* from job_history jh  join employees em  on (jh.employee_id = em.employee_id)  where em.salary > 10000;
+
+----------------------------------subqueries------------------------
+
+ use  employee table......
+ 
+ 
+1. Write a query to find the first_name, last_name and salaries of the employees who have a higher salary than the employee
+ whose last_name is Bull.
+=> select FIRST_NAME, LAST_NAME, SALARY from employees where SALARY >  (select salary from employees where last_name = 'Bull');
+
+ 2. Write a SQL subquery to find the first_name and last_name of all employees who works in the IT department.
+=> select first_name, last_name  from employees  where department_id  IN select department_id from departments where department_name='IT');
+
+ 3. Write a SQL subquery to find the first_name and last_name of the employees under a manager who works for a department based in the United States.
+=> select first_name, last_name from employees where manager_id in (select employee_id from employees where department_id  IN select department_id from 
+departments where location_id  IN (select location_id from locations where country_id='US')));
+
+4. Write a SQL subquery to find the first_name and last_name of the employees who are working as a manager.
+=> select first_name, last_name  from employees  where (employee_id IN (select manager_id from employees));
+
+5. Write a SQL subquery to find the first_name, last_name and salary, which is greater than the average salary of the employees.
+=> select * from employees  where salary >  ALL(select avg(salary)from employees group by department_id);
+
+6. Write a SQL subquery to find the first_name, last_name and salary, which is equal to the minimum salary for this post, he/she is working on.
+=> select first_name, last_name, salary  from employees  where employees.salary = (select min_salary from jobs where employees.job_id = jobs.job_id);
+
+7. Write a SQL Subquery to find the first_name, last_name and salary of the employees who earn more than the average salary and works in any of the IT departments.
+=> select first_name, last_name, salary from employees  where department_id in  (select department_id from departments where department_name LIKE 'IT%')  and salary > (select avg(salary) from employees);
+
+8. Write a SQL subquery to find the first_name, last_name and salary of the employees who draw a more salary than the employee, which the last name is Bell.
+=> select first_name, last_name, salary  from employees  where salary >  (select salary from employees where last_name = 'Bell') order by first_name;
+
+9. Write a SQL subquery to find all the information of the employees who draws the same salary as the minimum salary for all departments.
+=> select * from employees  where salary = (select MIN(salary) from employees);
+
+10. Write a SQL subquery to find all the information of the employees whose salary greater than the average salary of all departments.
+=> select * from employees where salary > ALL(select avg(salary)from employees group by department_id);
+
+11. Write a subquery to find the first_name, last_name, job_id and salary of the employees who draws a salary that is higher than the salary of all the Shipping Clerk (JOB_ID = 'SH_CLERK'). Sort the results on salary from the lowest to highest.
+=> select first_name,last_name, job_id, salary  from employees  where salary >  ALL select salary from employees where job_id = 'SH_CLERK') order by salary;
+

@@ -15,7 +15,7 @@ router.post('/signUp',service.signup);
 router.post('/makeReservation',service.doreservation);
 
 //to modify a reservation
-//router.put('/modifyReservation');
+router.put('/modifyReservation/:id',service.updateReservation);
 
 //search for a flight
 router.get('/searchaFlight',service.getFlight);

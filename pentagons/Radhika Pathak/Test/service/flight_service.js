@@ -86,6 +86,16 @@ const doreservation = (req, res) => {
  * @param {*} res 
  * 
  */
+const updateReservation =(req,res)=>{
+    let id = req.params.id;
+    let class_type = req.body.class_type;
+    let updateQuery=` update reservation set class='${class_type}' where pid='${id}' ` ;
+    connection.query(updateQuery,(err,result)=>{
+        if(err) throw err;
+        //res.status(200).json(result);
+        res.send(JSON.stringify("Updated class to "+ class_type));
+    });
+}
 
 
 /**
@@ -118,7 +128,7 @@ const searchSeat = (req, res) => {
     let seat_number = req.body.seatno;
     seats_available = [34, 56, 44, 52, 1, 37, 98, 22];
     console.log(seat_number);
-    if (seats_available.includes(seat_number)) {
+    if (seats_available.includes(Number(seat_number))) {
         res.status(200).json({ msg: "Seat is available.You can book your seat" });
     }
     else {
@@ -135,10 +145,11 @@ const searchSeat = (req, res) => {
  */
 const selectFood = (req, res) => {
     let food = req.body.meal_type;
-    let chkfood = `SELECT EXISTS(SELECT * from meal WHERE meal_type='${food}')`;
+    let chkfood = `SELECT * from meal WHERE meal_type='${food}'`;
     console.log(chkfood);
     connection.query(chkfood, (err, result) => {
-        if (chkfood === 0) {
+        console.log(result)
+        if (result.length == 0) {
             res.status(404).json({ msg: "food not available" });
         }
         else {
@@ -173,6 +184,7 @@ module.exports = {
     getFlight,
     signup,
     doreservation,
+    updateReservation,
     selectFood,
     searchSeat,
     deleteBooking

@@ -1,0 +1,20 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "test package has all dependencies",
+  "main": "airlineServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aditya mahajan",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "@joi/date": "^2.1.0",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "express-validator": "^6.15.0",
+    "http": "0.0.1-security",
+    "mysql": "^2.18.1"
+  }
+}

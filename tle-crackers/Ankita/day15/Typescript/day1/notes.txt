@@ -1,0 +1,4 @@
+-----array-----
+insert(begin,end,middle)
+add
+delete

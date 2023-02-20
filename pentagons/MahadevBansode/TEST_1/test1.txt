@@ -1,0 +1,150 @@
+Designed a Flight Reservation that support functionality of customers to :
+
+//make a reservation
+//modify reservation
+book reservation through mobile
+//cancel reservation
+select seats of customer choice from seat map
+//select food of customer choice from menu
+Customers able to sign-up to the application
+//customers able to search for available between source and destination on customer specified dates
+
+CREATE TABLE flight_database.`Address` (
+    `street` varchar(45) DEFAULT NULL,
+    `area` varchar(50) DEFAULT NULL,
+    `aid` int(10) NOT NULL AUTO_INCREMENT,
+    `city` varchar(45) DEFAULT NULL,
+    `state` varchar(45) DEFAULT NULL,
+    `country` varchar(45) DEFAULT NULL,
+    `zipcode` int(10) DEFAULT NULL,
+     PRIMARY KEY  (`aid`)
+    );
+---------------------------------------------------------------------------------------    
+    create table flight_database.`Customer` (
+     `cid` varchar(50) primary key auto_increment,
+     `email` varchar(50) unique,
+     `firstName` varchar(30),
+     `lastName` varchar(30),
+     `gender` varchar(45) DEFAULT NULL,
+     `dob` date DEFAULT NULL,
+     `password` varchar(45) DEFAULT NULL,
+     `noofreservations` varchar(10) default 0,
+     primary key (`cid`)
+    );
+    
+    create table flight_database.`flight_details` (
+    `fid` int(10) not null auto_increment,
+    `fno` varchar(10) unique,	
+    `airline` varchar(50) default null,
+    `aircraft` varchar(50) default null,
+    `vesselno` varchar(50) default null,
+    `sourceairport` varchar(50) default null,
+    `destinationairport` varchar(50) default null,
+    `arrivaldate` datetime default null,
+    `departuredate` datetime default null,
+    `modelname` varchar(50),
+    `noofseats` int(10),
+    `seatsbooked` varchar(50),
+    primary key(`fid`)
+    );
+	
+    create table flight_database.`meal` (
+	`mid` int primary key,
+	`name` varchar(50) not null
+    );
+     
+    create table flight_database.`Passenger` (
+    `pid` int auto_increment,
+    `email` varchar(50) not null,
+    `visatype` varchar(10) default null,
+    `passportno` varchar(10) default null,
+    `tickettype` varchar(10) default null,
+    foreign key (`email`) references `customer`(`email`),
+    primary key(`pid`)
+    );
+	
+    create table flight_database.`reservation` (
+    `rid` int(10) not null auto_increment,
+    `fno` varchar(10) not null,
+    `email` varchar(50) not null,
+    `tickettype` varchar(10) default null,
+    `seat_no` varchar(20) not null,
+    `status` varchar(1) not null Default 'B',
+    `meal` varchar(30) not null Default 'NA',
+    `bookingdate` timestamp default current_timestamp,
+    FOREIGN KEY (`fno`)  REFERENCES flight_database.`flight_details`(`fno`),
+    primary key(`rid`,`seat_no`,`fno`)
+    );
+	
+    
+  
+    	
+	ALTER TABLE reservation MODIFY 
+	COLUMN bookingdate 
+	TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	ON UPDATE CURRENT_TIMESTAMP;
+    
+reservation json :-
+------------------------------------------------------
+{
+    "fno" : "AI 189",
+    "email" : "amol@gmail.com",
+    "visa" : "G2",
+    "passportno" : "1526142",
+    "seat_no" : 12,
+    "meal":"veg",
+    "tickettype" : "Business"
+}
+
+search for flight :-
+--------------------------------------
+{
+    "source" :"mumbai",
+    "destination" : "delhi",
+    "date" : "2023-09-11"
+} 
+----------------------------------------------------------------
+createcustomer:-
+-------------------------------
+{
+    "email" : "radhika@gmail.com",
+    "firstname" : "radhika",
+    "lastname" : "pathak",
+    "gender" : "M",
+    "password":"pass123"
+}
+-----------------------------------
+modify flight :-
+---------------------------------------
+{
+    "fno" : "VS 6717",
+    "seat_no" : 12,
+    "meal":"veg",
+    "tickettype" : "economy"
+
+}
+---------------------------------
+cancel ticket :-
+{
+    "fid" : 2
+}
+---------------------------------
+    
+    desc flight_database.person;
+    drop table flight_database.person;
+    drop table flight_database.customer;
+    drop table flight_database.passenger;
+    drop table flight_database.transportation;
+    drop table flight_database.reservation;
+    drop table flight_database.selected_transportation;
+    drop table flight_database.selectedtransport;
+    drop table flight_database.transportation;
+    select * from flight_database.customer;
+    select * from flight_database.person;
+    select * from flight_database.transportation;
+    select * from  flight_database.reservation;
+    select * from flight_database.selected_transportation;
+    select * from flight_database.selectedtransport;
+    select * from flight_database.transportation;
+    
+   

@@ -44,7 +44,7 @@ let createProduct = async (req, res) => {
       });
       res.status(200).json(data);
    } catch (err) {
-      res.send('Error' + err);
+      res.send('Error' + err.message);
    }
 };
 

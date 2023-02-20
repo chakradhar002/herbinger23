@@ -1,0 +1,214 @@
+harbingergroupSecond> db.createCollection("harbingergroupSecond");
+
+harbingergroupSecond> show dbs;
+-----------------------------------------------------------------------------------------
+harbingergroupSecond> db.harbingergroupSecond.insertOne({ 
+    
+    title : "Title 1", 
+    body : "Body of post", 
+    category : "news", 
+    likes : 1, tags : [
+        "news",
+        "evenets"
+    ],
+    date : Date()
+})
+---------------------------------------------------------------------------------------------
+
+insert one record :--
+
+harbingergroupSecond> db.student.insertOne({ title : "Title 1", body : "Body of post", category : "news", likes : 1,
+ tags : [
+        "news",
+        "evenets"
+    ],date : Date()
+})
+
+---------------------------------------------------------------------------------------------------
+insert many Records :-
+
+    db.posts.insertMany(
+        [{
+            title : "Title 2",
+            body : "Body of post", 
+            category : "news", 
+            likes : 1, 
+            tags : [
+                "news",
+                "evenets"
+            ],
+            date : Date()
+
+        },
+        {
+            title : "Title 3",
+            body : "Body of post", 
+            category : "news", 
+            likes : 1, 
+            tags : [
+                "news",
+                "evenets"
+            ],
+            date : Date()
+
+        },
+        {
+            title : "Title 3",
+            body : "Body of post", 
+            category : "news", 
+            likes : 1, 
+            tags : [
+                "news",
+                "evenets"
+            ],
+            date : Date()
+        }]
+    )
+-----------------------------------------------------------------------------------------------------------
+
+to select data from a Collection in mongoDB ,we can use find() method.
+
+db.harbingergroupSecond.find();
+--------------------------------------------------
+
+to select data from Collection in mongodb ,we can use the findOne() method for single record.
+
+db.harbingergroupSecond.findOne();
+-----------------------------------------------------
+
+Update the record.
+
+db.harbingergroupSecond.updateOne(
+    {  title : "Title 1", },
+    {$set : {likes : 40 }}
+);
+
+------------------------------------------------------------------
+find Record by title 
+
+db.harbingergroupSecond.findOne({title:'Title 1'});
+-------------------------------------------------------------------
+
+Aggrigate Methods :-
+
+1.$group :-
+==================================
+*** grouping on category :-
+
+harbingergroupSecond> db.harbingergroupSecond.aggregate( 
+    [{ $group: { _id: "category" } }]
+)
+
+note :-  _id is experssion id
+
+o/p :-
+[ { _id: 'Cricket' }, { _id: 'news' } ]
+
+-----------------------------------------------------------
+*** grouping on object _id :-
+
+harbingergroupSecond> db.harbingergroupSecond.aggregate( [{ $group: { _id: "_id" } }])
+
+[
+  { _id: ObjectId("63eb1463ab7206d02ab9d9b2") },
+  { _id: ObjectId("63eb172eab7206d02ab9d9b4") }
+]
+
+note :- 1. _id is experssion id
+        2. $_id is object id 
+        3. both id are diffrent
+-----------------------------------------------------------------------
+
+2. $project :-
+=============================
+db.posts.aggregate(
+    [ { $project : {"title" : 1, "body" : 1, "category" : 1} },
+      { $limit : 4 } 
+    ]
+)
+
+o/p:--
+[
+  {
+    _id: ObjectId("63eb1ae4ab7206d02ab9d9b5"),
+    title: 'Title 1',
+    body: 'Body of post',
+    category: 'news'
+  },
+  {
+    _id: ObjectId("63eb1ae4ab7206d02ab9d9b6"),
+    title: 'Title 2',
+    body: 'Body of post',
+    category: 'events'
+  },
+  {
+    _id: ObjectId("63eb1ae4ab7206d02ab9d9b7"),
+    title: 'Title 3',
+    body: 'Body of post',
+    category: 'tech'
+  }
+]
+-----------------------------------------------------------------------------------------
+
+3. $sort :-
+==============================
+db.posts.aggregate(
+        { $sort : {"category" : 1} }
+)
+
+db.posts.aggregate(
+        { $sort : {"category" : -1} }
+)
+
+** note :- 
+     1  = ascending
+    -1 = descending
+
+--------------------------------
+
+db.posts.aggregate(
+        [ 
+            { $sort : {"title" : 1} } ,
+            { $project : {"title" : 1} },
+            { $limit : 1}
+        ]
+)
+
+o/p :-
+[
+  { _id: ObjectId("63eb1ae4ab7206d02ab9d9b5"), title: 'Title 1' },
+  { _id: ObjectId("63eb1ae4ab7206d02ab9d9b6"), title: 'Title 2' }
+]
+--------------------------------------------------------------------
+4. $match
+===============
+
+db.posts.aggregate(
+    { $match : { title : "Title 1"} }
+)
+
+o/p:-
+
+[
+  {
+    _id: ObjectId("63eb1ae4ab7206d02ab9d9b5"),
+    title: 'Title 1',
+    body: 'Body of post',
+    category: 'news',
+    likes: 1,
+    tags: [ 'news', 'evenets' ],
+    date: 'Tue Feb 14 2023 10:53:48 GMT+0530 (India Standard Time)'
+  }
+]
+-------------------------------------------
+
+db.posts.aggregate( [
+    { $match : { category : "events"} },
+    { $limit : 1 },
+    { $project : {category : 1}}
+] )
+
+o/p:-
+d[ { _id: ObjectId("63eb1ae4ab7206d02ab9d9b6"), category: 'events' } ]
+
+-----------------------------------------------------------------------------------

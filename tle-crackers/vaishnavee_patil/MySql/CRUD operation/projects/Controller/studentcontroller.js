@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 var router = express.Router();
-const service = require('../service/studentservice')
+const service = require("../service/studentservice");
 //routing to the poststudent page
 router.post("/poststudent", service.putStudentlist);
 //rounting to the get student list page

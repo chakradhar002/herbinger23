@@ -1,0 +1,38 @@
+// Initialize the seat map for the flight
+const seatMap = [
+  ['A', 'B', 'C', 'D', 'E', 'F'],
+  ['A', 'B', 'C', 'D', 'E', 'F'],
+  ['A', 'B', 'C', 'D', 'E', 'F'],
+  ['A', 'B', 'C', 'D', 'E', 'F'],
+  ['A', 'B', 'C', 'D', 'E', 'F'],
+  ['A', 'B', 'C', 'D', 'E', 'F'],
+];
+
+// Define the route for reserving a seat
+app.post('/flight-reservations/:flightId/seats/:seatNumber', (req, res) => {
+  const flightId = req.params.flightId;
+  const seatNumber = req.params.seatNumber;
+
+  // Check if the seat is available
+  if (isSeatAvailable(flightId, seatNumber)) {
+    // Reserve the seat
+    reserveSeat(flightId, seatNumber);
+    res.send({ success: true });
+  } else {
+    res.status(400).send({ success: false, message: 'Seat is not available' });
+  }
+});
+
+// Helper function to check if a seat is available
+function isSeatAvailable(flightId, seatNumber) {
+  const row = seatNumber.charAt(0).toUpperCase().charCodeAt(0) - 65;
+  const col = parseInt(seatNumber.slice(1)) - 1;
+  return seatMap[row][col] !== 'X';
+}
+
+// Helper function to reserve a seat
+function reserveSeat(flightId, seatNumber) {
+  const row = seatNumber.charAt(0).toUpperCase().charCodeAt(0) - 65;
+  const col = parseInt(seatNumber.slice(1)) - 1;
+  seatMap[row][col] = 'X';
+}

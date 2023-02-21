@@ -351,8 +351,7 @@ SELECT last_name
 
 9. Write a query to display the jobs/designations available in the employees table.
 ans.
-SELECT DISTINCT job_id  
-FROM employees;
+SELECT DISTINCT job_id  FROM employees;
 
 10. Write a query to display the name, including first_name, last_name, salary and 15% of salary as PF of all employees.
 ans.

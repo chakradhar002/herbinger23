@@ -1,8 +1,18 @@
+/**
+ * @author Ankita Bhujbal
+ */
+
 const router = require("../controller/flightController");
 var con = require("../db/dbconn");
 const { json } = require("body-parser");
 const { body } = require("express-validator");
 
+/**
+ * @description //registration
+ * @param {*} req
+ * @param {*} res
+ *
+ */
 const signUpPerson = (req, res) => {
   // let p_id=req.body.p_id;
   let lastName = req.body.lastName;
@@ -25,6 +35,13 @@ const signUpPerson = (req, res) => {
   }
 };
 
+/**
+ * @description //search flight
+ * @param {*} req
+ * @param {*} res
+ *
+ */
+
 const searchFlight = (req, res) => {
   let airline = req.body.airline;
   let query = `select * from flight_details where airline='${airline}'`;
@@ -37,6 +54,13 @@ const searchFlight = (req, res) => {
     throw new Error(res.send(JSON.stringify("no such  airline is present")));
   }
 };
+
+/**
+ * @description //book the seat
+ * @param {*} req
+ * @param {*} res
+ *
+ */
 
 const seatBooking = (req, res) => {
   // let booking_id=req.body.booking_id;
@@ -58,6 +82,13 @@ const seatBooking = (req, res) => {
   }
 };
 
+/**
+ * @description //update the booked seat
+ * @param {*} req
+ * @param {*} res
+ *
+ */
+
 const updatebookingById = (req, res) => {
   let ticket_type = req.body.ticket_type;
   // let flight_id=req.body.flight_id;
@@ -74,12 +105,31 @@ const updatebookingById = (req, res) => {
   }
 };
 
+/**
+ * @description //all registerd users
+ * @param {*} req
+ * @param {*} res
+ *
+ */
+
 const gerallUsers = (req, res) => {
-  con.connection.query("select * from person", (err, result) => {
-    if (err) throw err;
-    res.status(200).json(result);
-  });
+  try {
+    con.connection.query("select * from person", (err, result) => {
+      if (err) throw err;
+      res.status(200).json(result);
+    });
+  } catch (e) {
+    throw new Error("error while getting user data");
+  }
 };
+
+/**
+ * @description //cancel the booking
+ * @param {*} req
+ * @param {*} res
+ *
+ */
+
 const cancelBooking = (req, res) => {
   let booking_id = req.body.booking_id;
   let status = req.body.status;

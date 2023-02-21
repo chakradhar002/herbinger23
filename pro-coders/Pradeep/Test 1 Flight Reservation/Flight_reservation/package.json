@@ -1,0 +1,16 @@
+{
+  "name": "flight_reservation",
+  "version": "1.0.0",
+  "description": "flight reservation project",
+  "main": "flight_server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Pradeep",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
+  }
+}

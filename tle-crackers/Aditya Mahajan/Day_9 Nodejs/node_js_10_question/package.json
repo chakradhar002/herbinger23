@@ -1,0 +1,14 @@
+{
+  "name": "mypackage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "swapping.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aditya mahajan",
+  "license": "ISC",
+  "dependencies": {
+    "expressjs": "^1.0.1"
+  }
+}

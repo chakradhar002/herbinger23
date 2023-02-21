@@ -1,0 +1,101 @@
+
+
+<!-- ngif demo -->
+
+<p>ngIfElse example!</p> 
+
+<div *ngIf="isLogIn; else isLogOut"> 
+
+   Hello you are logged in 
+
+   </div>
+
+
+<ng-template #isLogOut> 
+   You're logged out.. 
+   
+</ng-template>
+
+<!-- ngFor demo -->
+
+<ul>
+  <li *ngFor="let item of friendslist">
+	The name and age is here
+  {{ item.name }} {{ item.age }}
+  </li>
+</ul>
+<!-- ngSwitch demo -->
+
+<div class='row' [ngSwitch]="selectedValue">  
+  <div *ngSwitchCase="'One'">One is Pressed</div>  
+  <div *ngSwitchCase="'Two'">Two is Selected</div>  
+  <div *ngSwitchDefault>Default Option</div>  
+</div>  
+
+<!-- ngstyle demo -->
+
+<div>
+  <button [ngStyle]="AddButtonCSSStyles()">Click Me </button>
+</div>
+
+
+<div *ngFor='let student of students'>
+  <span [ngStyle] ="{'background-color':student.Gender === 'Male' ? 'red' : 'green'}">Name : {{student.Name}}, Gender: {{student.Gender}}, Branch: {{student.Branch}}</span>       
+</div><br>
+<br>
+<br>
+<br>
+
+
+<!-- demp of property binding  
+  String Interpolation -->
+
+....................................{{title | uppercase}}  <br>
+********************{{ title | lowercase }}
+
+<br>
+<br>
+<br>
+
+
+<button [disabled]="isDisabled">I am disabled</button><br>
+<br>
+<br>
+
+
+<h2>Event binding demo</h2>
+<button (click)="clickMe()">Click Me</button>
+<p>You have clicked {{clickCount}}</p> <br>
+<br><br><br><br><br><br><br><br><br><br>
+
+<div style = "width:100%;">  
+  <div style = "width:40%;float:left;border:solid 1px black;">  
+    <h1>Uppercase Pipe</h1>  
+    <b>{{title1 | uppercase}}</b><br/>  
+    <h1>Lowercase Pipe</h1>  
+    <b>{{title | lowercase}}</b>  
+    <h1>Currency Pipe</h1>  
+    <b>{{6589.23 | currency:"USD"}}</b><br/>  
+    <b>{{6589.23 | currency:"USD":true}}</b> //Boolean true is used to get the sign of the currency.  
+   
+    <h1>Date pipe</h1>  
+    
+    <b>{{todaydate | date:'d/M/y'}}</b><br/>  
+    <b>{{todaydate | date:'shortTime'}}</b>  
+    
+    {{todaydate | date: 'dd/MM/yyyy'}}
+    
+    <h1>Decimal Pipe</h1>  
+    <b>{{ 454.78787814 | number: '3.4-4' }}</b> // 3 is for main integer, 4 -4 are for integers to be displayed.  
+  </div>  
+  
+  <div style = "width:40%;float:left;border:solid 1px black;">  
+    <h1>Json Pipe</h1>  
+    <b>{{ jsonval | json }}</b>  
+    <h1>Percent Pipe</h1>  
+    <b>{{00.54565 | percent}}</b>  
+    <h1>Slice Pipe</h1>  
+    <b>{{months | slice:2:6}}</b>  
+    // here 2 and 6 refers to the start and the end index  
+  </div>  
+</div>   

@@ -1,0 +1,20 @@
+<form>
+
+<p>
+  <label for="">Full Name</label>
+  <input type="text" class="form-control" [ngModel]="user.fullname">
+</p>
+  <p>
+    <label for="country">country</label>
+    <select name="country" id="country">
+      <option selected="" value=""></option>
+      <option [ngValue] = "country.id" *ngFor="let country of countryList">
+        {{country.name}}
+      </option>
+    </select>
+  </p>
+  <p>
+    <button type="submit" (click)="onSubmitUserInfo(user)">submit</button>
+  </p>
+
+</form>

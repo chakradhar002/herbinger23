@@ -3,24 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductComponent } from './product/product.component';
 import { CustomerComponent } from './customer/customer.component';
-import { ProductCategoryComponent } from './product-category/product-category.component';
 import { CartComponent } from './cart/cart.component';
 import { CustomerAddressComponent } from './customer-address/customer-address.component';
+import { CreateProductComponent } from './Product_Component/create-product/create-product.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
     CustomerComponent,
-    ProductCategoryComponent,
     CartComponent,
-    CustomerAddressComponent
+    CustomerAddressComponent,
+    CreateProductComponent,
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

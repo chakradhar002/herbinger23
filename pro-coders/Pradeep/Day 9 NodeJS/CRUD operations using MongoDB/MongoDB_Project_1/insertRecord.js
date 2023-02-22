@@ -21,7 +21,7 @@ User.createCollection().then(function (collection) {
     console.log('Collection created.');
 });
 
-var myobj = new User( {name : "king", age : 29 } );
+var myobj = new User( {name : "Queen", age : 20 } );
 
 myobj.save(function (err, myobj) {
     if(err) return(console.timeLog(err));

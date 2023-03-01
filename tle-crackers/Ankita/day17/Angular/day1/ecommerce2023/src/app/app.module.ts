@@ -9,6 +9,10 @@ import { ProductCategoryComponent } from './product-category/product-category.co
 import { CartComponent } from './cart/cart.component';
 import { CustomerAddressComponent } from './customer-address/customer-address.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { AddproductComponent } from './product/addproduct/addproduct.component';
+import { UpdateproductComponent } from './product/updateproduct/updateproduct.component';
+import { DeleteproductComponent } from './product/deleteproduct/deleteproduct.component';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,10 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     ProductCategoryComponent,
     CartComponent,
     CustomerAddressComponent,
-    SignUpComponent
+    SignUpComponent,
+    AddproductComponent,
+    UpdateproductComponent,
+    DeleteproductComponent
   ],
   imports: [
     BrowserModule,

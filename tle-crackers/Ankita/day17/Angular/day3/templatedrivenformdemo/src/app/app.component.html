@@ -1,0 +1,6 @@
+<form #myForm="ngForm" (ngSubmit)="onSubmitUserInfo(myForm.value)">
+  <select name="country" id="country" ngModel="country">
+    <option [ngValue] ="c.id" *ngFor="let c of countryList">{{c.name}}</option>
+  </select>
+    <input type="submit">
+</form>

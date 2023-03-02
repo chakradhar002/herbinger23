@@ -2,9 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ExpenseEntryItem from './ExpnseEntryItems';
 
-
-
-
 const item = {
   id: 1, 
   name : "mango", 

@@ -8,6 +8,7 @@ class ExpenseEntryItem extends React.Component {
 
     }
     render() {
+      
         return (
            <div>
                <div><b>Item id :</b> <em>{this.props.item.id}</em></div>

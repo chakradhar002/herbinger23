@@ -1,5 +1,5 @@
 {
-  "name": "mongodbdemo",
+  "name": "testcases",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.18.2",
     "mocha": "^10.2.0",
-    "mongodb": "^5.0.1",
-    "mongoose": "^6.10.1"
+    "mongoose": "^7.0.0"
   }
 }

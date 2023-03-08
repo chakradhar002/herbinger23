@@ -5,7 +5,4 @@ var router = express.Router();
 
 router.get("/getlistemployee", service.getEmployeeList);
 
-
-
-
 module.exports = router;
